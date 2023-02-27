@@ -12,27 +12,27 @@ class Account:
 
     def __init__(self, name, balance):
         self._name = name,
-        self._balance = balance
+        self.__balance = balance
         self._transaction_list = [(Account._current_time(), balance)]
         print("account created for " + name)
         self.show_balance()
 
     def deposit(self, amount):
         if amount > 0:
-            self._balance += amount
+            self.__balance += amount
             self.show_balance()
             self._transaction_list.append((Account._current_time(), amount))
 
     def withdraw(self, amount):
-        if 0 < amount <= self._balance:
-            self._balance -= amount
+        if 0 < amount <= self.__balance:
+            self.__balance -= amount
             self._transaction_list.append((Account._current_time(), -amount))
         else:
             print("the amount must be greater than zero and no more than your account balance")
         self.show_balance()
 
     def show_balance(self):
-        print("balance is {}".format(self._balance))
+        print("balance is {}".format(self.__balance))
 
     def show_transactions(self):
         for date, amount in self._transaction_list:
@@ -52,6 +52,10 @@ if __name__ == "__main__":
     matte.show_transactions()
 
     steph = Account("step", 800)
+    steph.__balance = 200
     steph.deposit(100)
     steph.withdraw(200)
     steph.show_transactions()
+    steph.show_balance()
+
+    print(steph.__dict__)
